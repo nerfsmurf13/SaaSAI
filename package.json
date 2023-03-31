@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "npm install && cd client && npm install && npm run build"
+    "build": "npm install && cd client && npm install && npm run build",
+    "serve": "node server.js"
   },
   "repository": {
     "type": "git",
