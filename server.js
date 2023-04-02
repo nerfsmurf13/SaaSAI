@@ -1,7 +1,7 @@
 //connect our config.env
 require("dotenv").config({ path: "./config.env" });
 const applicationInsights = require("applicationinsights");
-applicationInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
+applicationInsights.setup(process.env.APPSETTING_APPLICATIONINSIGHTS_CONNECTION_STRING).start();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -15,6 +15,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// console.log(process.env);
+
 var rawBodySaver = function (req, res, buf, encoding) {
   if (buf && buf.length) {
     req.rawBody = buf.toString(encoding || "utf8");
@@ -22,9 +24,10 @@ var rawBodySaver = function (req, res, buf, encoding) {
 };
 app.use(bodyParser.json({ verify: rawBodySaver, extended: true }));
 
+mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.APPSETTING_MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("Connected to MongoDB!!");
   } catch (error) {
     console.log(error);
@@ -33,6 +36,7 @@ const connectDB = async () => {
 connectDB();
 
 const port = process.env.WEBSITES_PORT || 8080;
+// const port = process.env.PORT || 4242;
 //const port =4242;
 app.use(express.json());
 
