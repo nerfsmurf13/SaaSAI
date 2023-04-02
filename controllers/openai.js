@@ -81,7 +81,7 @@ exports.jsConverter = async (req, res) => {
 
   try {
     const response = await openai.createCompletion({
-      model: "code-davinci-002",
+      model: "text-davinci-003",
       prompt: `/* Convert these instruction into JavaScript code: \n${text} */`,
       max_tokens: 400,
       temperature: 0.25,
