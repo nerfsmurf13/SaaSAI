@@ -1,5 +1,5 @@
 config.env
 *.env
-.github
+
 node_modules
 ```
