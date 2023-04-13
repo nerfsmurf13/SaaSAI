@@ -1,7 +1,8 @@
 const User = require("../models/User");
 
 const stripe = require("stripe")(process.env.APPSETTING_STRIPE_SECRET);
-const DOMAIN = "http://localhost:3000";
+// const DOMAIN = "http://localhost:3000";
+const DOMAIN = "saasai.azurewebsites.net";
 // const DOMAIN = "http://testingsaas.com";
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
