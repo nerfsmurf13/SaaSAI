@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "npm install && cd client && npm install && npm run build",
-    "serve": "node server.js --ignore client"
+    "serve": "nodemon server.js --ignore client"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.2",
+    "nodemailer": "^6.9.1",
     "openai": "^3.1.0",
     "stripe": "^11.5.0"
   }

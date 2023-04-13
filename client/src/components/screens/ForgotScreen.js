@@ -4,26 +4,24 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const RegisterScreen = () => {
+const ForgotScreen = () => {
   const theme = useTheme();
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const config = {
     headers: { "Content-Type": "application/json" },
   };
 
-  const registerHandler = async (e) => {
+  const forgotHandler = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/auth/register", { username, email, password }, config);
-      navigate("/login");
+      await axios.post("/api/auth/forgot-password", { email }, config);
+      navigate("/reset-sent");
     } catch (err) {
       console.log(err);
       if (err.response.data.error) {
@@ -51,35 +49,19 @@ const RegisterScreen = () => {
           {error}
         </Alert>
       </Collapse>
-      <form onSubmit={registerHandler}>
-        <Typography variant="h3">Sign Up</Typography>
+      <form onSubmit={forgotHandler}>
+        <Typography variant="h3">Forgot password</Typography>
         <TextField
-          label="Username"
-          margin="normal"
-          required
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Email"
+          label="Account Email"
           margin="normal"
           required
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <TextField
-          label="Password"
-          type="password"
-          margin="normal"
-          required
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+
         <Button fullWidth variant="contained" type="submit" size="large" sx={{ color: "white", mt: 2 }}>
-          Sign Up
+          Send Reset Code
         </Button>
       </form>
       <Typography mt={2}>
@@ -89,4 +71,4 @@ const RegisterScreen = () => {
   );
 };
 
-export default RegisterScreen;
+export default ForgotScreen;

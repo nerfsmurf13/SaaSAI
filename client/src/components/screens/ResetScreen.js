@@ -1,29 +1,54 @@
 import React from "react";
 import { Box, Link, Typography, useTheme, useMediaQuery, Collapse, Alert, TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const RegisterScreen = () => {
+const ForgotScreen = () => {
+  useEffect(() => {
+    grabUser();
+  }, []);
   const theme = useTheme();
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
 
   const config = {
     headers: { "Content-Type": "application/json" },
   };
+  const params = useParams([]);
 
-  const registerHandler = async (e) => {
-    e.preventDefault();
+  let user = "";
 
+  // Calls server to check if token valid and grab user
+  const grabUser = async (e) => {
+    // e.preventDefault();
+    console.log("grabing user...");
     try {
-      await axios.post("/api/auth/register", { username, email, password }, config);
+      const { data } = await axios.post(`/api/auth/reset-password/`, params, config);
+      setEmail(data.email);
+      user = data;
+      console.log("User Found...");
+      console.info(data);
+    } catch (err) {
+      console.log("Fucking Error...");
+      console.log(err);
+    }
+  };
+
+  // Form submission handler and password updater
+  const updatePasswordHandler = async (e) => {
+    try {
+      e.preventDefault();
+
+      console.log("fe-updatePasswordHandler");
+      await axios.post("/api/auth/reset-password-go/", { email, password }, config);
       navigate("/login");
+      // navigate("/login");
     } catch (err) {
       console.log(err);
       if (err.response.data.error) {
@@ -36,6 +61,7 @@ const RegisterScreen = () => {
       }, 5000);
     }
   };
+  let isError = error ? true : false;
 
   return (
     <Box
@@ -46,31 +72,24 @@ const RegisterScreen = () => {
       backgroundColor={theme.palette.background.alt}
       sx={{ boxShadow: 5 }}
     >
-      <Collapse in={error}>
+      <Collapse in={isError}>
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       </Collapse>
-      <form onSubmit={registerHandler}>
-        <Typography variant="h3">Sign Up</Typography>
+      <form onSubmit={updatePasswordHandler}>
+        <Typography variant="h3">Forgot password</Typography>
         <TextField
-          label="Username"
+          label="Account Email"
           margin="normal"
           required
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Email"
-          margin="normal"
-          required
+          disabled
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
-          label="Password"
+          label="New Password"
           type="password"
           margin="normal"
           required
@@ -79,7 +98,7 @@ const RegisterScreen = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button fullWidth variant="contained" type="submit" size="large" sx={{ color: "white", mt: 2 }}>
-          Sign Up
+          Reset Password
         </Button>
       </form>
       <Typography mt={2}>
@@ -89,4 +108,4 @@ const RegisterScreen = () => {
   );
 };
 
-export default RegisterScreen;
+export default ForgotScreen;

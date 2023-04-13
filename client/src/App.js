@@ -1,26 +1,29 @@
-import React from 'react';
-import { withAITracking } from '@microsoft/applicationinsights-react-js';
-import { reactPlugin, appInsights } from './AppInsights';
+import React from "react";
+import { withAITracking } from "@microsoft/applicationinsights-react-js";
+import { reactPlugin, appInsights } from "./AppInsights";
 
-import {Routes, Route} from 'react-router-dom';
-import { useMemo } from 'react';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
-import { themeSettings } from './theme';
-import Navbar from './components/Navbar';
-import HomeScreen  from './components/screens/HomeScreen';
-import LoginScreen from './components/screens/LoginScreen';
-import RegisterScreen from './components/screens/RegisterScreen';
-import SummaryScreen from './components/screens/SummaryScreen';
-import ParagraphScreen from './components/screens/ParagraphScreen';
-import ChatbotScreen from './components/screens/ChatbotScreen';
-import JavascriptScreen from './components/screens/JavascriptScreen';
-import ScifiScreen from './components/screens/ScifiScreen';
-import PrivateRoute from './components/routing/PrivateRoute';
-import NormalWrapper from './components/routing/NormalWrapper';
+import { Routes, Route } from "react-router-dom";
+import { useMemo } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "./theme";
+import Navbar from "./components/Navbar";
+import HomeScreen from "./components/screens/HomeScreen";
+import LoginScreen from "./components/screens/LoginScreen";
+import ForgotScreen from "./components/screens/ForgotScreen";
+import ResetScreen from "./components/screens/ResetScreen";
+import ResetSentScreen from "./components/screens/ResetSentScreen";
+import RegisterScreen from "./components/screens/RegisterScreen";
+import SummaryScreen from "./components/screens/SummaryScreen";
+import ParagraphScreen from "./components/screens/ParagraphScreen";
+import ChatbotScreen from "./components/screens/ChatbotScreen";
+import JavascriptScreen from "./components/screens/JavascriptScreen";
+import ScifiScreen from "./components/screens/ScifiScreen";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import NormalWrapper from "./components/routing/NormalWrapper";
 
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(`${process.env.APPSETTING_REACT_APP_STRIPE_PUBLISHABLE_KEY}`);
 
 function App() {
@@ -30,16 +33,31 @@ function App() {
       <div className="App">
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Navbar/>
+          <Navbar />
           <Routes>
             <Route exact path="/" element={<HomeScreen />} />
             <Route exact path="/login" element={<LoginScreen />} />
             <Route exact path="/register" element={<RegisterScreen />} />
-            <Route exact path="/summary" element={<PrivateRoute> <NormalWrapper> <SummaryScreen /> </NormalWrapper> </PrivateRoute>} />
+            <Route
+              exact
+              path="/summary"
+              element={
+                <PrivateRoute>
+                  {" "}
+                  <NormalWrapper>
+                    {" "}
+                    <SummaryScreen />{" "}
+                  </NormalWrapper>{" "}
+                </PrivateRoute>
+              }
+            />
             <Route exact path="/paragraph" element={<ParagraphScreen />} />
             <Route exact path="/chatbot" element={<ChatbotScreen />} />
             <Route exact path="/js-convert" element={<JavascriptScreen />} />
             <Route exact path="/scifi-img" element={<ScifiScreen />} />
+            <Route exact path="/forgot-password" element={<ForgotScreen />} />
+            <Route exact path="/reset-password/:resetToken" element={<ResetScreen />} />
+            <Route exact path="/reset-sent" element={<ResetSentScreen />} />
           </Routes>
         </ThemeProvider>
       </div>

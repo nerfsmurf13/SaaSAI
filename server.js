@@ -10,7 +10,6 @@ const mongoose = require("mongoose");
 const errorHandler = require("./middleware/error");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
