@@ -48,6 +48,7 @@ exports.resetPasswordGo = async (req, res, next) => {
 
 // Receive Email and Sends Reset Token via Email
 exports.forgotPassword = async (req, res, next) => {
+  console.log("forgotPassword Fired");
   const { email } = req.body;
 
   const user = await User.findOne({ email });
@@ -133,7 +134,8 @@ exports.getRefreshToken = async (req, res, next) => {
       res.status(200).json(accessToken);
     }
   } catch (err) {
-    console.log("hello");
+    console.error("getRefreshToken Error");
+    console.log(err);
     return next(err);
   }
 };

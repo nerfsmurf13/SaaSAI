@@ -7,14 +7,13 @@ import { useNavigate, useParams } from "react-router-dom";
 const ForgotScreen = () => {
   useEffect(() => {
     grabUser();
-  }, []);
+  });
   const theme = useTheme();
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
 
   const config = {
@@ -22,7 +21,7 @@ const ForgotScreen = () => {
   };
   const params = useParams([]);
 
-  let user = "";
+  var user = "";
 
   // Calls server to check if token valid and grab user
   const grabUser = async (e) => {

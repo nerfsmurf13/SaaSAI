@@ -1,11 +1,9 @@
 import React from "react";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const ResetSentScreen = () => {
   const theme = useTheme();
   const isNotMobile = useMediaQuery("(min-width: 1000px)");
-  const navigate = useNavigate();
 
   return (
     <Box
