@@ -16,6 +16,7 @@ import ResetSentScreen from "./components/screens/ResetSentScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import SummaryScreen from "./components/screens/SummaryScreen";
 import ParagraphScreen from "./components/screens/ParagraphScreen";
+import TestBuilderScreen from "./components/screens/TestBuilderScreen";
 import ChatbotScreen from "./components/screens/ChatbotScreen";
 import JavascriptScreen from "./components/screens/JavascriptScreen";
 import ScifiScreen from "./components/screens/ScifiScreen";
@@ -47,6 +48,19 @@ function App() {
                   <NormalWrapper>
                     {" "}
                     <SummaryScreen />{" "}
+                  </NormalWrapper>{" "}
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path="/testbuilder"
+              element={
+                <PrivateRoute>
+                  {" "}
+                  <NormalWrapper>
+                    {" "}
+                    <TestBuilderScreen />{" "}
                   </NormalWrapper>{" "}
                 </PrivateRoute>
               }

@@ -20,7 +20,7 @@ const HomeScreen = () => {
           const config = { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token.data}` } };
           const sub = await axios.get("/api/auth/subscription", config);
           if (sub.data.subscription) {
-            navigate("/summary");
+            navigate("/testbuilder");
           } else {
             const session = await axios.post(
               "/api/stripe/checkout",
@@ -60,6 +60,24 @@ const HomeScreen = () => {
       </Typography>
       <Stack direction="row" spacing={6} ml={4}>
         <Card
+          onClick={handleCheckout}
+          sx={{
+            boxShadow: 2,
+            borderRadius: 5,
+            height: 190,
+            width: 280,
+            "&:hover": { border: 2, boxShadow: 0, borderColor: "primary.dark", cursor: "pointer" },
+          }}
+        >
+          <DescriptionRoundedIcon sx={{ fontSize: 80, color: "primary.main", mt: 2, ml: 2 }} />
+          <Stack p={3} pt={0}>
+            <Typography fontWeight="bold" variant="h5">
+              Test Builder
+            </Typography>
+            <Typography variant="h6">Quickly build a test on any topic in seconds</Typography>
+          </Stack>
+        </Card>
+        {/* <Card
           onClick={handleCheckout}
           sx={{
             boxShadow: 2,
@@ -112,7 +130,7 @@ const HomeScreen = () => {
             </Typography>
             <Typography variant="h6">Gain insight from a yoda-like virtual assistant!</Typography>
           </Stack>
-        </Card>
+        </Card> */}
       </Stack>
 
       <Typography fontWeight="bold" variant="h4" ml={4} mt={8} mb={2}>

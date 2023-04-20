@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  credits: {
+    type: Number,
+    default: 5,
+  },
   subscription: {
     type: String,
     default: "",

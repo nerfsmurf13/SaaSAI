@@ -26,6 +26,35 @@ exports.summarize = async (req, res) => {
   }
 };
 
+//summarize text
+exports.buildtest = async (req, res) => {
+  const { type, level, questionNo, subject } = req.body;
+
+  switch (type) {
+    case "multiplechoice":
+      try {
+        const response = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `Create a ${type} test for ${level} intellegence with ${questionNo} questions about ${subject}. Do not repeat questions. Output in JSON format. Example: { "questions": [ { "question": "This is a Question?", "options": [ "A. Answer 1", "B. Answer 2", "C. Answer 3", "D. Answer 4" ], "answer": 0 ,"type": "multiplechoice" }]}`,
+          max_tokens: 2000,
+          temperature: 0.5,
+        });
+        if (response.data) {
+          if (response.data.choices[0].text) {
+            return res.status(200).json(response.data.choices[0].text);
+          }
+        }
+      } catch (err) {
+        return res.status(404).json({ message: err.message });
+      }
+
+      break;
+
+    default:
+      break;
+  }
+};
+
 //generate a paragraph
 exports.paragraph = async (req, res) => {
   const { text } = req.body;

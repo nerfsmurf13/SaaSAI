@@ -10,6 +10,7 @@ const {
   resetPassword,
   resetPasswordGo,
   getRefreshToken,
+  getCredits,
   getSubscription,
   getCustomer,
 } = require("../controllers/auth");
@@ -25,6 +26,7 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password-go", resetPasswordGo);
 router.post("/reset-password", resetPassword);
 router.get("/refresh-token", getRefreshToken);
+router.get("/credits", getCredits);
 router.get("/subscription", protect, getSubscription);
 router.get("/customer", protect, getCustomer);
 

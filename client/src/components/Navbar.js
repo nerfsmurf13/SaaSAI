@@ -38,6 +38,16 @@ const Navbar = () => {
     }
   };
 
+  // const checkCredits = async () => {
+  //   try {
+  //     const config = { headers: { "Content-Type": "application/json" } };
+  //     const credits = await axios.get("/api/auth/credits", { customerId: customerId.data.customerId }, config);
+  //     localStorage.setItem("credits", credits);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const checkSub = (data) => {
     if (data.subscription) {
       localStorage.setItem("sub", data.subscription);
@@ -65,6 +75,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     checkRefresh();
+    // checkCredits();
   });
 
   return (
@@ -82,6 +93,9 @@ const Navbar = () => {
       </Typography>
       {loggedIn ? (
         <>
+          <Typography variant="p" color="primary">
+            Credits
+          </Typography>
           <Button onClick={createPortal} color="primary">
             Billing Portal
           </Button>

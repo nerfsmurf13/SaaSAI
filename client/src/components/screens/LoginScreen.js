@@ -24,6 +24,7 @@ const LoginScreen = () => {
       const { data } = await axios.post("/api/auth/login", { email, password }, config);
       if (data.token.accessToken) {
         localStorage.setItem("authToken", true);
+        // localStorage.setItem("email", true);
         navigate("/");
         window.location.reload();
       }

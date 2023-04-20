@@ -157,3 +157,12 @@ exports.getCustomer = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getCredits = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({ credits: user.credits });
+  } catch (err) {
+    next(err);
+  }
+};
